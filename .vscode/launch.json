@@ -1,0 +1,19 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Replay",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/macroPi/replay.py",
+            "console": "internalConsole"
+        },
+        {
+            "name": "Init",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceRoot}/macroPi/__init__.py",
+            "console": "internalConsole"
+        }
+    ]
+}
