@@ -1,6 +1,6 @@
+from configClasses import ConfigStorage, ConfigEvent, ConfigKey
 import jsons as custom_json
 from serializer import KeySerializer
-from dataclasses import dataclass
 
 CONFIG_FILE_NAME = "shortcuts.json"
 CONFIG_TOP_LEVEL_KEYWORD = "keys"
@@ -16,7 +16,6 @@ def load_key_events():
         config_storage = ConfigStorage(keys={})
 
         for json_key in json_dict[CONFIG_TOP_LEVEL_KEYWORD].values():
-            
             config_events = [ConfigEvent(
                 json_record[CONFIG_KEY_CODE_KEYWORD],
                 json_record[CONFIG_PRESSED_KEYWORD]
@@ -29,17 +28,3 @@ def store_key_events(config_storage):
     KeySerializer.create_instance()
     with open(CONFIG_FILE_NAME,'w+') as outfile:     
         outfile.write(custom_json.dumps(config_storage, {"indent": 4}))
-
-@dataclass
-class ConfigEvent:
-    key_code: str
-    pressed: bool
-
-@dataclass
-class ConfigKey:
-    remote_scan_code: str
-    recording: list[ConfigEvent]
-
-@dataclass
-class ConfigStorage:
-    keys: dict[ConfigKey]

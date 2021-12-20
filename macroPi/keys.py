@@ -1,3 +1,6 @@
+from typing import Any, List
+from configClasses import ConfigEvent, ConfigKey
+from store import ConfigStorage
 import threading
 import pickle
 from enum import Enum
@@ -63,3 +66,21 @@ def record():
 def replay(event_list):
     for key_event in event_list:
         execute_key_event(key_event)
+
+def on_remote_key_press(remote_scan_code: str, config_storage: ConfigStorage):
+    config_key_to_play:ConfigKey = config_storage.keys[remote_scan_code]
+    if(not config_key_to_play):
+        print("Keycode " + remote_scan_code + "not found in config") 
+    execute_config_recording(config_key_to_play.recording)
+
+def execute_config_recording(recording: List[ConfigEvent]):
+    for rec in recording:
+        ev_key = rec.key_code if (len(rec.key_code) < 2) else eval(rec.key_code)
+        ev_state = rec.pressed
+
+        if(ev_state == True):
+            keyboard.press(ev_key)
+        elif(ev_state == False):
+            keyboard.release(ev_key)
+        else:
+            raise TypeError("invalid key event")
