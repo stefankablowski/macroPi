@@ -1,0 +1,13 @@
+{
+    "keys": {
+        "key1": {
+            "remote_scan_code": "127",
+            "recording": [
+                {
+                    "key_code": "A",
+                    "pressed": true
+                }
+            ]
+        }
+    }
+}
